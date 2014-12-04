@@ -4,10 +4,10 @@ var server  = require('http').createServer(app);
 var io      = require('socket.io')(server);
 
 io.on('connection', function(client){
-  console.log('Client connected...');
 
   client.on('join', function(name) {
     client.nickname = name;
+    console.log(client.nickname + ' connected...');
   });
 
   client.on('messages', function(message){
@@ -18,9 +18,10 @@ io.on('connection', function(client){
   });
 });
 
+app.set('port', (process.env.PORT || 8080));
+app.use(express.static(__dirname + '/public'));
 app.get('/', function(request, response){
   response.sendFile(__dirname + '/index.html');
 });
-app.use(express.static(__dirname + '/public'));
 
-server.listen(8080);
+server.listen(app.get('port'));
