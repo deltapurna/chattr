@@ -38,6 +38,10 @@
       socket.on('messages', function(data){
         $('#messages').append('<p>'+data+'</p>');
       });
+
+      socket.on('chat', function(data){
+        $('#messages').append('<p>'+data+'</p>');
+      });
     </script>
   </body>
 </html>
